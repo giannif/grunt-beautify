@@ -49,12 +49,12 @@ module.exports = function (grunt) {
     var endOfLineCharacters = options.endOfLineCharacters || require('os').EOL;
 
     // Beautify specified files.
-    grunt.file.expand(this.data).forEach(function (filepath) {
-      var result = beautifier.beautifyJs(grunt.file.read(filepath), options);
+    this.files.forEach(function(filepath) {
+      var result = beautifier.beautifyJs(grunt.file.read(filepath.src), options);
       if (options.endOfLineNormalization) {
         result = result.replace(/\r\n|\n\r|\r|\n/g, endOfLineCharacters);
       }
-      grunt.file.write(filepath, result);
+      grunt.file.write(filepath.dest, result);
     });
 
   });
